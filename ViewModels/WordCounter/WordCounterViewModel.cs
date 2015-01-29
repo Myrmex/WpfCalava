@@ -48,6 +48,7 @@ namespace WpfCalava.ViewModels
             Count = _sText.Split().Length;
         }
 
+        //[ImportingConstructor]
         public WordCounterViewModel()
         {
             DisplayName = StringResources.WordCounter;

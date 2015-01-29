@@ -87,9 +87,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Converters\AdBooleanToVisibilityConverter.cs" />
     <Compile Include="DebugLogger.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Messages\ApplicationStateChangedMessage.cs" />
+    <Compile Include="Messages\ToolVisibilityChangedMessage.cs" />
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Application\AppSettings.cs" />
     <Compile Include="ViewModels\Application\IApplication.cs" />

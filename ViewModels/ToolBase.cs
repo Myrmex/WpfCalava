@@ -1,5 +1,7 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
 using Caliburn.Micro;
+using WpfCalava.Messages;
 
 namespace WpfCalava.ViewModels
 {

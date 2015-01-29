@@ -4,10 +4,22 @@
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:views="clr-namespace:WpfCalava.Views"
+        xmlns:converters="clr-namespace:WpfCalava.Converters"
         Title="{Binding Path=DisplayName}"
         Height="600" Width="800" MinWidth="640" MinHeight="480">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityCvt"/>
+        <converters:AdBooleanToVisibilityConverter x:Key="AdBooleanToVisibilityCvt"/>
+        
+        <!--<Style TargetType="{x:Type xcad:LayoutAnchorableItem}">
+            <Setter Property="Title" Value="{Binding Model.DisplayName}" />
+            <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
+            <Setter Property="Visibility" 
+                            Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityCvt}}"/>
+            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=OneWay}"/>
+            <Setter Property="CanClose" Value="False"/>
+            <Setter Property="CanHide" Value="False"/>
+        </Style>-->
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -33,7 +45,7 @@
             </MenuItem>
         </Menu>
 
-        <xcad:DockingManager Name="_dockMgr"  Grid.Row="1"
+        <xcad:DockingManager Name="_dockMgr" Grid.Row="1"
                              AnchorablesSource="{Binding Path=Tools}"
                              DocumentsSource="{Binding Path=Documents}"
                              ActiveContent="{Binding Path=ActiveItem, Mode=TwoWay}"
@@ -44,8 +56,9 @@
                 <Style TargetType="{x:Type xcad:LayoutItem}">
                     <Setter Property="Title" Value="{Binding Model.DisplayName}" />
                     <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
+                    <!-- http://stackoverflow.com/questions/23617707/binding-to-layoutanchorableitem-visibility-in-avalondock-2 -->
                     <Setter Property="Visibility" 
-                            Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityCvt}}"/>
+                            Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource AdBooleanToVisibilityCvt}}"/>
                     <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=OneWay}"/>
                 </Style>
             </xcad:DockingManager.LayoutItemContainerStyle>
