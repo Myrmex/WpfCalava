@@ -2,7 +2,7 @@
 
 This project was born after [this post of mine](http://stackoverflow.com/questions/28194046/correctly-handling-document-close-and-tool-hide-in-a-wpf-app-with-avalondockcal). I have spent a lot of time googling around and collecting issues and potential solutions for letting a WPF application work with Caliburn Micro and AvalonDock 2.0 together, even if this is the most basic scenario. Having found a lot of unanswered questions about this topic, I thought this might at least help someone else who is starting with these two libraries.
 
-A big thank you to all the community posters and bloggers whose suggestions were useful for building this even raw but somewhat hopefully functional template. *Sumus enim nani super humeros gigantum insidentes...*.
+A big thank you to all the community posters and bloggers whose suggestions were useful for building this even raw but somewhat hopefully functional template. *Sumus enim nani super humeros gigantum...*.
 
 In this document you can find a step by step guide for creating the essential WPF application skeleton based onto AD+CM contained in this code repository. That's just a starting point, intentionally kept as simple as possible, but it would be nice if the community could improve it so we can have a guide for implementing such a common mix.
 
