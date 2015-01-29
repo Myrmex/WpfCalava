@@ -1,6 +1,8 @@
 ## WPF Caliburn Micro + AvalonDock 2.0 Template Guide
 
-This project was born after [this post of mine](http://stackoverflow.com/questions/28194046/correctly-handling-document-close-and-tool-hide-in-a-wpf-app-with-avalondockcal). I have spent a lot of time googling around and collecting issues and potential solutions for letting a WPF application work with Caliburn Micro and AvalonDock 2.0 together, yet there are still some issues even in the most basic scenario represented by this template-like solution. Having found a lot of unanswered questions about this topic, I thought this might at least help someone else who is starting with these two libraries.
+This project was born after [this post of mine](http://stackoverflow.com/questions/28194046/correctly-handling-document-close-and-tool-hide-in-a-wpf-app-with-avalondockcal). I have spent a lot of time googling around and collecting issues and potential solutions for letting a WPF application work with Caliburn Micro and AvalonDock 2.0 together, even if this is the most basic scenario. Having found a lot of unanswered questions about this topic, I thought this might at least help someone else who is starting with these two libraries.
+
+A big thank you to all the community posters and bloggers whose suggestions were useful for building this even raw but somewhat hopefully functional template. *Sumus enim nani super humeros gigantum insidentes...*.
 
 In this document you can find a step by step guide for creating the essential WPF application skeleton based onto AD+CM contained in this code repository. That's just a starting point, intentionally kept as simple as possible, but it would be nice if the community could improve it so we can have a guide for implementing such a common mix.
 
@@ -58,15 +60,13 @@ To let AD play with CM I'm using a workaround similar to that described in [Prev
 
 ###2. Closing Tools
 
-Status: not yet solved, even if some even ugler hack might be envisaged. Hope someone else comes out with a better solution.
+Status: apparently solved with a hack.
 
 In AD, tools panes can be only hidden, not closed (as document panes), by the user. I'd like the user to be able to hide them, but of course also to restore them when required. 
 
 I thus added a checkable menu item under a the `View` menu for my tool pane, bound to a visible property of the corresponding VM. As CM does not have such property in its `Screen`, I'm deriving a `ToolBase` from it like (meanwhile it's also useful to add an icon to each tool pane).
 
-Issue with this approach: if I hide the tool pane by clicking on its X button (or by unchecking its menu item), I can see that my VM `IsVisible` property is set to false as expected, and the pane is hidden. Then, if I programmatically set this property back to true (by checking the corresponding menu item) the pane is not shown.
-
-Even restoring the layout does not work: I can see that when the application starts and the object corresponding to the hidden VM is being added to the `Tools` collection its `IsVisible` is already false. To have it back, I must set this to true and then restore the layout. If I miss any of the two steps, the pane remains hidden.
+A potential issue arises with this approach: if I hide the tool pane by clicking on its X button (or by unchecking its menu item), I can see that my VM `IsVisible` property is set to false as expected, and the pane is hidden. Then, if I programmatically set this property back to true (by checking the corresponding menu item) the pane is not shown. Often, a null object reference exception is thrown. The explanation of this lays in the fact that AD is actually closing rather than hiding the control, and this depends on the fact that the boolean to visibility converter used to bind the VM `IsVisible` property to the AD visibility is returning (as expected) `Collapsed` for false, when instead AD is expecting `Hidden`. This is explained in [this post](http://stackoverflow.com/questions/23617707/binding-to-layoutanchorableitem-visibility-in-avalondock-2). The suggested solution seems not to work with the current implementation of that converter, so I simply added a custom one (`AdBooleanToVisibilityConverter`).
 
 ###3. Saving/Restoring Layout
 
@@ -75,5 +75,3 @@ Status: issues connected with nr.2 above are not yet solved.
 To save/restore the layout, I find satisfying to just use code behind, as this is essentially view-related stuff, not pertaining to the VM. So I just add a couple of menu items and their handlers. See the `MainView` class in the project.
 
 You can use a couple of menu items in the main view to save or restore the layout once you have modified it at your will.
-
-Note that there also is an `IsSelected` property to be bound (one-way) to the corresponding AD control. Not sure how this is meant to be used when using CM, where the conductor takes care of activating VMs.
