@@ -70,8 +70,6 @@ A potential issue arises with this approach: if I hide the tool pane by clicking
 
 ###3. Saving/Restoring Layout
 
-Status: issues connected with nr.2 above are not yet solved.
-
 To save/restore the layout, I find satisfying to just use code behind, as this is essentially view-related stuff, not pertaining to the VM. So I just add a couple of menu items and their handlers. See the `MainView` class in the project.
 
 You can use a couple of menu items in the main view to save or restore the layout once you have modified it at your will.
