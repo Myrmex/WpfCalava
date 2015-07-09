@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Globalization;
 using System.Linq;
@@ -47,26 +48,19 @@ namespace WpfCalava.ViewModels
         internal MainViewModel(IEventAggregator events,
             IWindowManager window,
             IApplication application,
-            WordCounterViewModel wordCounter)
+            [ImportMany] IEnumerable<ToolBase> tools)
         {
             if (events == null) throw new ArgumentNullException("events");
             if (window == null) throw new ArgumentNullException("window");
             if (application == null) throw new ArgumentNullException("application");
-            if (wordCounter == null) throw new ArgumentNullException("wordCounter");
+            if (tools == null) throw new ArgumentNullException("tools");
 
             _events = events;
             _window = window;
             _application = application;
 
-            // we expose this tool as a property as we want to bind the View menu
-            // to its IsVisible property. Otherwise adding it to the tools collection
-            // would be enough.
-            WordCounter = wordCounter;
 
-            Tools = new BindableCollection<ToolBase>
-            {
-                WordCounter
-            };
+            Tools = new BindableCollection<ToolBase>(tools);
 
             Documents = new BindableCollection<DocumentBase>();
             // @@hack for synching the documents collection
