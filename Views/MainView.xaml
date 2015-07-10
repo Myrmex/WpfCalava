@@ -34,9 +34,16 @@
                           Name="AddDocument"/>
             </MenuItem>
             <MenuItem Header="{Binding Path=Resources.View,Source={StaticResource LocalizedStrings}}">
-                <MenuItem Header="{Binding Path=Resources.WordCounter,Source={StaticResource LocalizedStrings}}" 
-                          IsChecked="{Binding Path=WordCounter.IsVisible,Mode=TwoWay}"
-                          IsCheckable="True"/>
+                <MenuItem Header="{Binding Path=Resources.Tools,Source={StaticResource LocalizedStrings}}"
+                          ItemsSource="{Binding Path=Tools}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Header" Value="{Binding Path=Name}"/>
+                            <Setter Property="IsCheckable" Value="True"/>
+                            <Setter Property="IsChecked" Value="{Binding Path=IsVisible}"/>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="{Binding Path=Resources.RestoreLayout,Source={StaticResource LocalizedStrings}}" 
                           Click="OnRestoreLayoutClick"/>

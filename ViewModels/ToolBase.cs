@@ -14,6 +14,7 @@ namespace WpfCalava.ViewModels
     {
         private bool _bIsSelected;
         private bool _bIsVisible;
+        private string _sName;
 
         /// <summary>
         /// Gets or sets the icon source.
@@ -50,12 +51,24 @@ namespace WpfCalava.ViewModels
             }
         }
 
+        public string Name
+        {
+            get { return _sName; }
+            set
+            {
+                if (value.Equals(_sName)) return;
+                _sName = value;
+                NotifyOfPropertyChange(() => Name);
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolBase"/> class.
         /// </summary>
-        protected ToolBase()
+        protected ToolBase(string name)
         {
             _bIsVisible = true;
+            _sName = name;
         }
     }
 }

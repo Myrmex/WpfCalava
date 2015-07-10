@@ -9,6 +9,7 @@ namespace WpfCalava.ViewModels
     /// A dummy tool pane just to have something to play with.
     /// </summary>
     [Export(typeof(WordCounterViewModel))]
+    [Export(typeof(ToolBase))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public sealed class WordCounterViewModel : ToolBase
     {
@@ -50,6 +51,7 @@ namespace WpfCalava.ViewModels
 
         //[ImportingConstructor]
         public WordCounterViewModel()
+            : base(StringResources.WordCounter)
         {
             DisplayName = StringResources.WordCounter;
             IconSource = new BitmapImage(new Uri("pack://siteoforigin:,,,/Assets/Images/Notes.png"));

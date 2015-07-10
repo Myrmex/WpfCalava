@@ -135,6 +135,9 @@
   <data name="SaveLayout" xml:space="preserve">
     <value>_Save layout</value>
   </data>
+  <data name="Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
   <data name="View" xml:space="preserve">
     <value>_View</value>
   </data>
